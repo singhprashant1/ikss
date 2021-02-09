@@ -17,6 +17,21 @@ class _GmappState extends State<Gmapp> {
   Position currentlocation;
   var geoLocator = Geolocator();
   LatLng latLatPosition;
+  BitmapDescriptor mapMaker; //for icon in bitmap
+  @override
+  @override
+  void initState() {
+    super.initState();
+    setCustomeMarker();
+  }
+
+  void setCustomeMarker() async {
+    mapMaker = await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(),
+      'ASSETS/india1.png',
+    );
+  }
+
   void locatePostion() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -65,6 +80,7 @@ class _GmappState extends State<Gmapp> {
                 _marker.add(Marker(
                   markerId: MarkerId('id-2'),
                   position: LatLng(19.3719936, 72.8754067),
+                  icon: mapMaker,
                   infoWindow:
                       InfoWindow(title: 'Jai mata di', snippet: 'temple'),
                 ));

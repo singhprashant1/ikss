@@ -17,7 +17,7 @@ class _GmappState extends State<Gmapp> {
   Position currentlocation;
   var geoLocator = Geolocator();
   LatLng latLatPosition;
-  locatePostion() async {
+  void locatePostion() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     currentlocation = position;
@@ -30,7 +30,7 @@ class _GmappState extends State<Gmapp> {
   }
 
   static final CameraPosition _kGoogleplex =
-      CameraPosition(target: LatLng(-33.870840, 151.206286), zoom: 12);
+      CameraPosition(target: LatLng(19.3064218, 72.9371035), zoom: 12);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +57,17 @@ class _GmappState extends State<Gmapp> {
                 print(latLatPosition);
                 bottampaddingofMap = 300;
                 _marker.add(Marker(
-                    markerId: MarkerId('id-1'),
-                    position: LatLng(-33.870840, 151.206286)));
+                  markerId: MarkerId('id-1'),
+                  position: LatLng(19.3064218, 72.9371035),
+                  infoWindow:
+                      InfoWindow(title: 'Jai mata di', snippet: 'temple'),
+                ));
+                _marker.add(Marker(
+                  markerId: MarkerId('id-2'),
+                  position: LatLng(19.3719936, 72.8754067),
+                  infoWindow:
+                      InfoWindow(title: 'Jai mata di', snippet: 'temple'),
+                ));
               });
             },
           )

@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 
+import 'package:ikss/videop.dart';
+
 class Gmapp extends StatefulWidget {
   @override
   _GmappState createState() => _GmappState();
@@ -18,7 +20,7 @@ class _GmappState extends State<Gmapp> {
   var geoLocator = Geolocator();
   LatLng latLatPosition;
   BitmapDescriptor mapMaker; //for icon in bitmap
-  @override
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +30,7 @@ class _GmappState extends State<Gmapp> {
   void setCustomeMarker() async {
     mapMaker = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(),
-      'ASSETS/india1.png',
+      'ASSETS/india2.png',
     );
   }
 
@@ -50,7 +52,12 @@ class _GmappState extends State<Gmapp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Google Map"),
+        title: GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => VideoPlayerr()));
+            },
+            child: Text("Google Map")),
       ),
       body: Stack(
         fit: StackFit.expand,

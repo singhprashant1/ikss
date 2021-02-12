@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:audioplayers/audio_cache.dart';
 
 class AudioPl extends StatefulWidget {
   @override
@@ -11,12 +10,14 @@ class _AudioPlState extends State<AudioPl> {
   AudioPlayer audioPlayer = AudioPlayer();
   Duration duration = Duration();
   Duration position = Duration();
-  bool playing = false;
-
+  bool playing = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("Audio Player"),
+        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 class VideoPlayerr extends StatefulWidget {
   @override
@@ -7,32 +8,36 @@ class VideoPlayerr extends StatefulWidget {
 }
 
 class _VideoPlayerrState extends State<VideoPlayerr> {
-  VideoPlayerController _controller;
-  int _playback = 0;
-  // Future<void> _initializeVideoPlayerFuture;
-  void _initplayer() async {
-    _controller = VideoPlayerController.network(
-        "http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4");
-    await _controller.initialize();
-    _controller.setLooping(true);
-    _controller.setVolume(1.0);
-  }
-
-  // int minute;
+  VideoPlayerController videoPlayerController;
+  ChewieController chewieController;
   @override
   void initState() {
     super.initState();
-    _initplayer();
-    _controller.addListener(() {
-      setState(() {
-        _playback = _controller.value.position.inSeconds;
-      });
-    });
+    videoPlayerController = VideoPlayerController.network(
+        "http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4");
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      aspectRatio: 16 / 9,
+      autoPlay: true,
+      looping: true,
+      // showControls: false,
+      // materialProgressColors: ChewieProgressColors(
+      //   playedColor: Colors.red,
+      //   handleColor: Colors.blue,
+      //   backgroundColor: Colors.grey,
+      //   bufferedColor: Colors.lightGreen,
+      // ),
+      // placeholder: Container(
+      //   color: Colors.grey,
+      // ),
+      // autoInitialize: true,
+    );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    videoPlayerController.dispose();
+    chewieController.dispose();
     super.dispose();
   }
 
@@ -40,70 +45,14 @@ class _VideoPlayerrState extends State<VideoPlayerr> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Player"),
+        title: Text("Video Player"),
       ),
-      body: _controller.value.initialized
-          ? _playerWidget()
-          : Center(child: CircularProgressIndicator()),
-      // body: FutureBuilder(
-      //   future: _initializeVideoPlayerFuture,
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.done) {
-      //       return AspectRatio(
-      //         aspectRatio: _controller.value.aspectRatio,
-      //         child: _playerWidget(),
-      //       );
-      //     } else {
-      //       return Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-      //   },
-      // ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        onPressed: () {
-          setState(() {
-            if (_controller.value.isPlaying) {
-              _controller.pause();
-            } else {
-              _controller.play();
-            }
-          });
-          var time = _controller.value.duration.inSeconds.toInt();
-          // var minut = time / 60;
-          int minut = (time / 60).truncate();
-          print(minut);
-          print(time);
-          // print(_controller.value.position.inSeconds.toString());
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          color: Colors.black,
-        ),
-      ),
+      body: Container(
+          decoration: BoxDecoration(color: Colors.black),
+          constraints: BoxConstraints.expand(
+            height: MediaQuery.of(context).size.height,
+          ),
+          child: Chewie(controller: chewieController)),
     );
-  }
-
-  Widget _playerWidget() {
-    return Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          ),
-          Slider(
-            value: _playback.toDouble(),
-            onChanged: (v) {
-              _controller.seekTo(Duration(seconds: v.toInt()));
-            },
-            max: _controller.value.duration.inSeconds.toDouble(),
-            min: 0,
-          ),
-        ]);
   }
 }

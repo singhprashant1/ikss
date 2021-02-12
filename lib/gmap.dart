@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ikss/audiop.dart';
 import 'dart:async';
 
 import 'package:ikss/videop.dart';
@@ -30,7 +31,7 @@ class _GmappState extends State<Gmapp> {
   void setCustomeMarker() async {
     mapMaker = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(),
-      'ASSETS/india2.png',
+      'ASSETS/india3.png',
     );
   }
 
@@ -52,12 +53,7 @@ class _GmappState extends State<Gmapp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => VideoPlayerr()));
-            },
-            child: Text("Google Map")),
+        title: Text("Google Map"),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -81,15 +77,27 @@ class _GmappState extends State<Gmapp> {
                 _marker.add(Marker(
                   markerId: MarkerId('id-1'),
                   position: LatLng(19.3064218, 72.9371035),
-                  infoWindow:
-                      InfoWindow(title: 'Jai mata di', snippet: 'temple'),
+                  infoWindow: InfoWindow(
+                      title: 'Demo',
+                      snippet: 'Demo data',
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VideoPlayerr()));
+                      }),
                 ));
                 _marker.add(Marker(
                   markerId: MarkerId('id-2'),
                   position: LatLng(19.3719936, 72.8754067),
                   icon: mapMaker,
-                  infoWindow:
-                      InfoWindow(title: 'Jai mata di', snippet: 'temple'),
+                  infoWindow: InfoWindow(
+                      title: 'Demo2',
+                      snippet: 'Demo data',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => AudioPl()));
+                      }),
                 ));
               });
             },

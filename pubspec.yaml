@@ -31,6 +31,8 @@ dependencies:
   google_maps_flutter: ^1.0.3
   geolocator: ^6.2.0
   video_player: ^1.0.1
+  audioplayers: ^0.17.3
+  chewie: ^0.12.2
 
 dev_dependencies:
   flutter_test:

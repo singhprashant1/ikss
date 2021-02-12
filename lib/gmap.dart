@@ -95,8 +95,10 @@ class _GmappState extends State<Gmapp> {
                       title: 'Demo2',
                       snippet: 'Demo data',
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AudioPl()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AudioPlayerUrl()));
                       }),
                 ));
               });

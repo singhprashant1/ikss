@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ikss/audio/audiop.dart';
-import 'package:ikss/login.dart';
+import 'package:ikss/phoneAuth/login.dart';
 import 'dart:async';
 
 import 'package:ikss/video/videop.dart';
@@ -74,8 +74,7 @@ class _GmappState extends State<Gmapp> {
               padding: EdgeInsets.only(right: 20.0, top: 12),
               child: GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    _logout();
                   },
                   child: Text(
                     "Logout",

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ikss/googlemap/gmap.dart';
-import 'package:ikss/login.dart';
-import 'package:ikss/register.dart';
+import 'package:ikss/phoneAuth/login.dart';
+import 'package:ikss/phoneAuth/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constant.dart';

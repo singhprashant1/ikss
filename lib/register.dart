@@ -215,16 +215,6 @@ class _FirstPageState extends State<FirstPage> {
                           var number_entered =
                               "+91" + phoneController.text.trim();
                           readData(name_entered, number_entered);
-                          // final formState = _formKey.currentState;
-                          // if (formState.validate()) {
-                          //   formState.save();
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => OTpSc(
-                          //               username: name_entered,
-                          //               number: number_entered)));
-                          // } els
                         },
                         splashColor: Colors.redAccent,
                       ),

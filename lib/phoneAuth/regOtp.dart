@@ -2,22 +2,37 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:ikss/googlemap/gmap.dart';
 
-import 'constant.dart';
+import '../constant.dart';
 
-class LoginOtp extends StatefulWidget {
-  final number;
-  LoginOtp({@required this.number});
+class OTpSc extends StatefulWidget {
+  final username, number;
+  OTpSc({@required this.username, this.number});
   @override
-  _LoginOtpState createState() => _LoginOtpState(number);
+  _OTpScState createState() => _OTpScState(username, number);
 }
 
-class _LoginOtpState extends State<LoginOtp> {
-  String otp, number;
-  _LoginOtpState(this.number);
+class _OTpScState extends State<OTpSc> {
+  void CreateData() async {
+    final databaseReference = FirebaseDatabase.instance.reference();
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    databaseReference
+        .child("Cust")
+        .child(user.uid)
+        .set({"name": username, "number": number, "uid": user.uid});
+    Constants.prefs.setBool("loggedIn", true);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Gmapp()),
+    );
+  }
+
+  String number, username;
+  _OTpScState(this.username, this.number);
   String verificationId;
-  String authStatus = "";
+  String otp, authStatus = "";
   Future<void> verifyPhoneNumber(BuildContext context) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: number,
@@ -48,20 +63,13 @@ class _LoginOtpState extends State<LoginOtp> {
     );
   }
 
-  SHaredPRef() {
-    Constants.prefs.setBool("loggedIn", true);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Gmapp()),
-    );
-  }
-
   signIn() {
     AuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
         verificationId: verificationId, smsCode: otp);
+
     FirebaseAuth.instance
         .signInWithCredential(phoneAuthCredential)
-        .then((user) => SHaredPRef())
+        .then((user) => CreateData())
         .catchError((e) => print(e));
   }
 
@@ -69,6 +77,7 @@ class _LoginOtpState extends State<LoginOtp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     this.verifyPhoneNumber(context);
   }
 
@@ -76,12 +85,6 @@ class _LoginOtpState extends State<LoginOtp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-            // child: Image(
-            //   image: AssetImage("ASSETS/logo.png"),
-            // ),
-            ),
-        // backgroundColor: Hexcolor("#f9692d"),
         backgroundColor: Colors.grey,
         elevation: 0.0,
       ),

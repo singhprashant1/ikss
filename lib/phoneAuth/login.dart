@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:ikss/loginotp.dart';
+import 'package:ikss/phoneAuth/loginotp.dart';
 import 'package:toast/toast.dart';
 
 class LoginPage extends StatefulWidget {

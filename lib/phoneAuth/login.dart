@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:ikss/googlemap/gmap.dart';
 import 'package:ikss/phoneAuth/loginotp.dart';
 import 'package:toast/toast.dart';
 
@@ -13,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController numberController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   void readData(String number) async {
     var dbRef = await FirebaseDatabase.instance.reference().child("Cust");
     dbRef
@@ -34,6 +38,27 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     });
+  }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseUser _user;
+
+  void signInwithGoogle() async {
+    final GoogleSignInAccount googleSignInAccount =
+        await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    await _auth.signInWithCredential(credential);
+    _user = await _auth.currentUser();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Gmapp()),
+    );
   }
 
   @override
@@ -105,7 +130,24 @@ class _LoginPageState extends State<LoginPage> {
                         height: 20,
                       ),
                       SizedBox(
-                        height: 280,
+                        height: 250,
+                      ),
+                      MaterialButton(
+                        height: 52,
+                        minWidth: 323,
+                        color: Colors.blue[900],
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24.0),
+                        ),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        ),
+                        onPressed: () {
+                          signInwithGoogle();
+                        },
+                        splashColor: Colors.redAccent,
                       ),
                       MaterialButton(
                         height: 52,

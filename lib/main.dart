@@ -16,7 +16,7 @@ Future main() async {
 
   runApp(MaterialApp(
     title: "Bookspot",
-    home: Constants.prefs.getBool("loggedIn") == true ? Gmapp() : FirstPage(),
+    home: Constants.prefs.getBool("loggedIn") == true ? Gmapp() : LoginPage(),
     debugShowCheckedModeBanner: false,
     routes: {
       "/logout": (context) => LoginPage(),

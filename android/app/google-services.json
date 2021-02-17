@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "967791672200",
+    "firebase_url": "https://ikss-edea2-default-rtdb.firebaseio.com",
+    "project_id": "ikss-edea2",
+    "storage_bucket": "ikss-edea2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967791672200:android:4f20df9266f9384ad3983d",
+        "android_client_info": {
+          "package_name": "com.example.ikss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967791672200-mgv16bb46o5pkftvr85bqb6lhcig6p4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ikss",
+            "certificate_hash": "32373c0a9e4018778d646039f0710b0610fa4233"
+          }
+        },
+        {
+          "client_id": "967791672200-b5nctmannlkqm00pnkrpp7g6uicbi1fd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALURMrcR6_zy4HK0cbqhvVvH05YsZeD58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967791672200-b5nctmannlkqm00pnkrpp7g6uicbi1fd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

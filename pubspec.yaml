@@ -33,6 +33,13 @@ dependencies:
   video_player: ^1.0.1
   audioplayers: ^0.17.3
   chewie: ^0.12.2
+  toast: ^0.1.5
+  hexcolor: ^1.0.6
+  firebase_auth: ^0.15.2
+  firebase_database:
+  firebase_core:
+  firebase_storage:
+  shared_preferences: ^0.5.12+4
 
 dev_dependencies:
   flutter_test:

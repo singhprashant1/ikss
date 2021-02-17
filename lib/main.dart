@@ -3,35 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ikss/gmap.dart';
+import 'package:ikss/login.dart';
+import 'package:ikss/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(MyApp());
+import 'constant.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class _MyAppState extends State<MyApp> {
-  Completer<GoogleMapController> _controller = Completer();
+  Constants.prefs = await SharedPreferences.getInstance();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Gmapp(),
-      // home: Scaffold(
-      //     appBar: AppBar(
-      //       title: Text('Maps Sample App'),
-      //       backgroundColor: Colors.green[700],
-      //     ),
-      //     body: Stack(
-      //       children: <Widget>[
-      //         GoogleMap(
-
-      //             initialCameraPosition: CameraPosition(
-      //                 target: LatLng(-33.870840, 151.206286), zoom: 12))
-      //       ],
-      //     )),
-    );
-  }
+  runApp(MaterialApp(
+    title: "Bookspot",
+    home: Constants.prefs.getBool("loggedIn") == true ? Gmapp() : FirstPage(),
+    debugShowCheckedModeBanner: false,
+    routes: {
+      "/logout": (context) => LoginPage(),
+      "/home": (context) => Gmapp(),
+    },
+  ));
 }

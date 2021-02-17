@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ikss/audiop.dart';
+import 'package:ikss/login.dart';
 import 'dart:async';
 
 import 'package:ikss/videop.dart';
+
+import 'constant.dart';
 
 class Gmapp extends StatefulWidget {
   @override
@@ -35,6 +39,17 @@ class _GmappState extends State<Gmapp> {
     );
   }
 
+  Future<void> _logout() async {
+    try {
+      Constants.prefs.setBool("loggedIn", false);
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   void locatePostion() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -54,6 +69,20 @@ class _GmappState extends State<Gmapp> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Google Map"),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0, top: 12),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ))),
+        ],
+        elevation: 0.0,
       ),
       body: Stack(
         fit: StackFit.expand,

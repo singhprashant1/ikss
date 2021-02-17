@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikss/gmap/gmap.dart';
-
+import 'package:ikss/gmap.dart';
 import 'package:ikss/main.dart';
 
 void main() {

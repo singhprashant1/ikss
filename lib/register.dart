@@ -218,14 +218,14 @@ class _FirstPageState extends State<FirstPage> {
                           // final formState = _formKey.currentState;
                           // if (formState.validate()) {
                           //   formState.save();
+
                           //   Navigator.push(
                           //       context,
                           //       MaterialPageRoute(
                           //           builder: (context) => OTpSc(
                           //               username: name_entered,
                           //               number: number_entered)));
-                          // } else
-                          //   return;
+                          // } els
                         },
                         splashColor: Colors.redAccent,
                       ),

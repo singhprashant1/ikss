@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:ikss/audiop.dart';
+import 'package:ikss/audio/audiop.dart';
 import 'package:ikss/login.dart';
 import 'dart:async';
 
-import 'package:ikss/videop.dart';
+import 'package:ikss/video/videop.dart';
 
-import 'constant.dart';
+import '../constant.dart';
 
 class Gmapp extends StatefulWidget {
   @override
